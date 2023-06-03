@@ -39,11 +39,24 @@ def _parse_city(open_weather_data: dict) -> str:
 
 
 def _parse_temperature(open_weather_data: dict) -> Celsius:
-    return round(open_weather_data['weather']["temperature"]['temp'] - 273.15)
+    return round(open_weather_data['weather']["temperature"]['temp'] - 273.15, 3)
 
 
 def _parse_weather_type(open_weather_data: dict) -> WeatherType:
-    return weather_types[str(open_weather_data['weather']['weather_code'])]
+    if 199 < open_weather_data['weather']['weather_code'] < 300:
+        return WeatherType.THUNDERSTORM
+    elif 299 < open_weather_data['weather']['weather_code'] < 400:
+        return WeatherType.DRIZZLE
+    elif 499 < open_weather_data['weather']['weather_code'] < 600:
+        return WeatherType.RAIN
+    elif 599 < open_weather_data['weather']['weather_code'] < 700:
+        return WeatherType.SNOW
+    elif 699 < open_weather_data['weather']['weather_code'] < 800:
+        return WeatherType.FOG
+    elif open_weather_data['weather']['weather_code'] == 800:
+        return WeatherType.CLEAR
+    else:
+        return WeatherType.CLOUDS
 
 
 def _parse_sunset_time(open_weather_data: dict) -> time:
