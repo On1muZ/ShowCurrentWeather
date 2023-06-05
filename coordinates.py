@@ -10,6 +10,8 @@ def get_gps_coordinates() -> Coordinates:
 def _get_coordinates_output() -> Coordinates:
     try:
         g = geocoder.ip('me')
+        if g.lat is None or g.lng is None:
+            raise CantGetCoordinates
         return Coordinates(latitude=g.lat, longitude=g.lng, city=g.city)
     except Exception:
         raise CantGetCoordinates

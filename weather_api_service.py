@@ -1,6 +1,6 @@
 import googletrans
 from pyowm import OWM
-from structures import WeatherType, Weather, weather_types, Celsius
+from structures import WeatherType, Weather, Celsius, Fahrenheit
 from coordinates import get_gps_coordinates
 from config import OPEN_WEATHER_API
 from datetime import datetime, time
@@ -25,7 +25,8 @@ def _get_openWeather_answer() -> dict:
 def _parse_OpenWeather_answer(open_weather_data: dict) -> Weather:
     return Weather(
         city=_parse_city(open_weather_data),
-        temperature=_parse_temperature(open_weather_data),
+        temperature_celsius=_parse_temperature_celsius(open_weather_data),
+        temperature_fahrenheit=_parse_temperature_fahrenheit(open_weather_data),
         weather_type=_parse_weather_type(open_weather_data),
         sunset=_parse_sunset_time(open_weather_data),
         sunrise=_parse_sunrise_time(open_weather_data)
@@ -38,8 +39,12 @@ def _parse_city(open_weather_data: dict) -> str:
     return result.text
 
 
-def _parse_temperature(open_weather_data: dict) -> Celsius:
+def _parse_temperature_celsius(open_weather_data: dict) -> Celsius:
     return round(open_weather_data['weather']["temperature"]['temp'] - 273.15, 3)
+
+
+def _parse_temperature_fahrenheit(open_weather_data: dict) -> Fahrenheit:
+    return round(1.8 * (open_weather_data['weather']["temperature"]['temp'] - 273.15) + 32, 3)
 
 
 def _parse_weather_type(open_weather_data: dict) -> WeatherType:

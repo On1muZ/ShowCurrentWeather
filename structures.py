@@ -1,8 +1,9 @@
 from typing import NamedTuple
-from datetime import datetime, time
+from datetime import time
 from enum import Enum
 
-Celsius = int
+Celsius = float
+Fahrenheit = float
 
 
 class Coordinates(NamedTuple):
@@ -25,19 +26,11 @@ class WeatherType(Enum):
 
 
 class Weather(NamedTuple):
-    temperature: Celsius
+    temperature_celsius: Celsius
+    temperature_fahrenheit: Fahrenheit
     weather_type: WeatherType
     sunrise: time
     sunset: time
     city: str
 
 
-weather_types = {
-        "1": WeatherType.THUNDERSTORM,
-        "3": WeatherType.DRIZZLE,
-        "5": WeatherType.RAIN,
-        "6": WeatherType.SNOW,
-        "7": WeatherType.FOG,
-        "800": WeatherType.CLEAR,
-        "80": WeatherType.CLOUDS
-    }

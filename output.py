@@ -1,20 +1,22 @@
 from datetime import time, datetime
 from time import time as time_now
 from rich.console import Console
-from structures import Weather, WeatherType, Celsius
+from structures import Weather, WeatherType, Celsius, Fahrenheit
 
 console = Console()
 
 
 def print_weather(weather: Weather) -> None:
     _print_weather(weather)
+    input()
+    # The end of program
 
 
 def _print_weather(weather: Weather) -> None:
     console.clear()
     print_tittle()
     print_city(weather.city)
-    print_temperature(weather.temperature)
+    print_temperature(weather.temperature_celsius, weather.temperature_fahrenheit)
     print_weather_type(weather.weather_type)
     print_sunset_time(weather.sunset)
     print_sunrise_time(weather.sunrise)
@@ -28,8 +30,9 @@ def print_city(city: str) -> None:
     console.print(f"[bold #4fe3aa]Город: {city}[/]", justify="center")
 
 
-def print_temperature(temperature: Celsius) -> None:
-    console.print(f"[bold white]Температура[/]: [white]{temperature}°С[/]", justify="center")
+def print_temperature(temperature_celsius: Celsius, temperature_fahrenheit: Fahrenheit) -> None:
+    console.print(f"[bold white]Температура[/]: [white]{temperature_celsius}°С / {temperature_fahrenheit}°F[/]",
+                  justify="center")
 
 
 def print_weather_type(weather_type: WeatherType) -> None:
