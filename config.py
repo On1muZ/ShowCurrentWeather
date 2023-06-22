@@ -1,3 +1,3 @@
 import os
 
-OPEN_WEATHER_API = os.getenv("OPEN_WEATHER_API")
+OPEN_WEATHER_API = "e9a13585df76c6c7a1d50ea5d110599f"

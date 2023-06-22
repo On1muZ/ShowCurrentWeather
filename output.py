@@ -9,6 +9,7 @@ console = Console()
 def print_weather(weather: Weather) -> None:
     _print_weather(weather)
     input()
+    console.clear()
     # The end of program
 
 
